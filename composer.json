@@ -1,0 +1,24 @@
+{
+    "name": "bedd/babelnet",
+    "description": "SDK for BabelNet",
+    "keywords": ["babelnet", "sdk", "client"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {"name": "Sven Muhle"}
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bedd\\BabelNet\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "tests/"
+        ]
+    }
+}
