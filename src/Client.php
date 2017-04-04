@@ -116,6 +116,7 @@ class Client
      * @param string $pos
      * @param string $source
      * @param string $normalizer
+     * @throws \Exception
      * @return string[]
      */
     public function getSynsetIds($word, $lang = null, $filterLangs = null, $pos = null, $source = null, $normalizer = null)
@@ -127,10 +128,32 @@ class Client
      * @see http://babelnet.org/guide#Retrievetheinformationofagivensynset
      * @param string $id
      * @param string $filterLangs
+     * @throws \Exception
      * @return array
      */
-    public function getSynsetById($id, $filterLangs = null) {
+    public function getSynsetById($id, $filterLangs = null)
+    {
         return $this->exec('getSynset', $this->getParamsByArguments(__METHOD__, func_get_args()));
+    }
+    
+    /**
+     * @see http://babelnet.org/guide#RetrievetheIDsoftheBabelsynsets(concepts)denotedbyagivenword
+     * @param string $word
+     * @param string $lang
+     * @param string $filterLangs
+     * @param string $pos
+     * @param string $source
+     * @param string $normalizer
+     * @throws \Exception
+     * @return array
+     */
+    public function getSynsets($word, $lang = null, $filterLangs = null, $pos = null, $source = null, $normalizer = null)
+    {
+        $synsets = [];
+        foreach ($this->getSynsetIds($word, $lang, $filterLangs, $pos, $source, $normalizer) as $synset_id) {
+            $synsets[] = $this->getSynsetById($synset_id, $filterLangs);
+        }
+        return $synsets;
     }
     
     /**
@@ -141,6 +164,7 @@ class Client
      * @param string $pos
      * @param string $source
      * @param string $normalizer
+     * @throws \Exception
      * @return array
      */
     public function getSenses($word, $lang = null, $filterLangs = null, $pos = null, $source = null, $normalizer = null)
@@ -151,6 +175,7 @@ class Client
     /**
      * @see http://babelnet.org/guide#RetrieveedgesofagivenBabelNetsynset6
      * @param string $id
+     * @throws \Exception
      * @return array
      */
     public function getEdges($id)
